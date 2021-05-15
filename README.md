@@ -21,10 +21,18 @@ Then you'll want to install all of the Python requirements (via
 ```bash
 $ pip install -r requirements.txt
 ```
-Using the following command to run the app in local
+Using the following command to run the app in local in windows
 ```bash
 $ py -m venv env
-$ env\Scripts\activate
+$ env\Scripts\activate 
+$ set FLASK_APP=app.py
+$ flask run --host=localhost --port=8080
+```
+
+Using the following command to run the app in local in macOs
+```bash
+$ python -m venv env
+$ source env/bin/activate 
 $ set FLASK_APP=app.py
 $ flask run --host=localhost --port=8080
 ```
