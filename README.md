@@ -12,7 +12,7 @@ $ git clone https://github.com/aminuddinpsg/microframework-challenge.git
 Next, you'll want to go into the sample app directory:
 
 ```bash
-$ cd service-rocket-file-upload
+$ cd microframework-challenge
 ```
 
 Then you'll want to install all of the Python requirements (via
