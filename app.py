@@ -18,3 +18,6 @@ def create_app() -> Flask:
     app.add_url_rule('/api/thumbnail','thumbnail',controller.uploadThumbnail,methods=['POST'])
       
     return app
+
+if __name__ == "__main__":
+		create_app()   
