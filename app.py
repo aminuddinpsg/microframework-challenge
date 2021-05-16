@@ -16,6 +16,7 @@ def create_app() -> Flask:
     app.add_url_rule('/api/picture','picture',controller.uploadPicture,methods=['POST'])
     app.add_url_rule('/api/zip','zip',controller.uploadZip,methods=['POST'])
     app.add_url_rule('/api/thumbnail','thumbnail',controller.uploadThumbnail,methods=['POST'])
+    app.add_url_rule('/api/pic','pic',controller.getPicture,methods=['GET'])
       
     return app
 

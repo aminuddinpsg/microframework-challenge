@@ -5,6 +5,7 @@ import zipfile
 from werkzeug.utils import secure_filename
 from os import path
 from PIL import Image
+from flask import request
 
 from init import PIC_DIR
 
@@ -35,8 +36,7 @@ class FileService:
         filename = self.createFileName(secure_filename(pic.filename))
         fullPath = os.path.join(PIC_DIR, filename)
         pic.save(fullPath)
-        
-        return dict(url=fullPath)
+        return dict(url=request.url_root+"api/pic?picture_name="+filename)
 
     def handleZipPicture(self,file):
         
@@ -55,7 +55,7 @@ class FileService:
                 filename = self.createFileName(secure_filename(filename))
                 fullPath = os.path.join(PIC_DIR, filename)
                 os.rename(tempFilePath,fullPath)  
-                respond.append(dict(url=fullPath))
+                respond.append(dict(url=request.url_root+"api/pic?picture_name="+filename))
             else :
                 respond.append(dict(msg=filename+" is not a picture"))
                 os.remove(os.path.join(PIC_DIR, filename))    
@@ -73,8 +73,10 @@ class FileService:
             secondThumbnail = image.copy()
 
             # generate unique fileName
-            firstFullPath =  os.path.join(PIC_DIR, self.createFileName(filename))
-            secondFullPath =  os.path.join(PIC_DIR, self.createFileName(filename))
+            firstFileName = self.createFileName(filename)
+            secondFileName = self.createFileName(filename)
+            firstFullPath =  os.path.join(PIC_DIR, firstFileName)
+            secondFullPath =  os.path.join(PIC_DIR, secondFileName)
 
             # determine the size
             firstSize = 32, (height/(width/32))
@@ -90,12 +92,12 @@ class FileService:
 
             # append the urls
             respond = []
-            respond.append(dict(url = firstFullPath))
-            respond.append(dict(url = secondFullPath))
+            respond.append(dict(url=request.url_root+"api/pic?picture_name="+firstFileName))
+            respond.append(dict(url=request.url_root+"api/pic?picture_name="+secondFileName))
             return respond
 
         else :    
             filename = self.createFileName(secure_filename(pic.filename))
             fullPath = os.path.join(PIC_DIR, filename)
             image.save(fullPath)
-            return dict(url=fullPath)            
+            return dict(url=request.url_root+"api/pic?picture_name="+filename)            

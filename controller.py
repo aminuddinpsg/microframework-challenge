@@ -1,8 +1,8 @@
-from flask import Flask, request, Response ,jsonify
+from flask import Flask, request, Response ,jsonify, send_file
 from dependency_injector.wiring import inject, Provide
 from FileService import FileService
 from containers import Container
-
+import os
 
 #@app.route('/')
 def hello():
@@ -69,4 +69,21 @@ def uploadThumbnail(file_service: FileService = Provide[Container.fileService]):
         Response = jsonify(dict(msg='file is not a picture'))
         Response.status_code = 400 
         return Response
+
+def getPicture():
+    pictureName = request.args.get("picture_name")
+    if pictureName :
+        if os.path.isfile('img/'+pictureName):     
+            return send_file('img/'+pictureName)
+        else :
+            Response = jsonify(dict(msg='picture is not found'))
+            Response.status_code = 404
+            return Response    
+    else :
+        Response = jsonify(dict(msg='picture_name parameter is empty'))
+        Response.status_code = 400
+        return Response 
+
+        
+
 
