@@ -1,4 +1,4 @@
-dependency-injector==3.15.6
+dependency-injector==4.32.2
 flask
 Werkzeug
 pillow
